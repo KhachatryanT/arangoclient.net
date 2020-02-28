@@ -155,12 +155,56 @@ namespace ArangoDB.Client
         /// <param name="numberOfShards">In a cluster, this value determines the number of shards to create for the collection</param>
         /// <param name="shardKeys">In a cluster, this attribute determines which document attributes are used to determine the target shard for documents</param>
         /// <returns>CreateCollectionResult</returns>
+        public CreateCollectionResult CreateCollection<T>(bool? waitForSync = null, bool? doCompact = null, double? journalSize = null,
+            bool? isSystem = null, bool? isVolatile = null, CollectionType? type = null, int? numberOfShards = null,
+            string shardKeys = null, CreateCollectionKeyOption keyOptions = null, int? IndexBuckets = null, Action<BaseResult> baseResult = null)
+        {
+            string collectionName = SharedSetting.Collection.ResolveCollectionName<T>();
+            return CreateCollection(collectionName, waitForSync, doCompact, journalSize, isSystem,
+                isVolatile, type, numberOfShards, shardKeys, keyOptions, IndexBuckets, baseResult);
+        }
+
+        /// <summary>
+        /// Creates a collection
+        /// </summary>
+        /// <param name="name">Name of the collection</param>
+        /// <param name="waitForSync">If true then the data is synchronised to disk before returning from a document create, update, replace or removal operation</param>
+        /// <param name="doCompact">Whether or not the collection will be compacted</param>
+        /// <param name="journalSize"> The maximal size of a journal or datafile in bytes. The value must be at least 1048576 (1 MB).</param>
+        /// <param name="isSystem"> If true, create a system collection. In this case collection-name should start with an underscore</param>
+        /// <param name="isVolatile">If true then the collection data is kept in-memory only and not made persistent</param>
+        /// <param name="type"> The type of the collection to create</param>
+        /// <param name="numberOfShards">In a cluster, this value determines the number of shards to create for the collection</param>
+        /// <param name="shardKeys">In a cluster, this attribute determines which document attributes are used to determine the target shard for documents</param>
+        /// <returns>CreateCollectionResult</returns>
         public CreateCollectionResult CreateCollection(string name, bool? waitForSync = null, bool? doCompact = null, double? journalSize = null,
             bool? isSystem = null, bool? isVolatile = null, CollectionType? type = null, int? numberOfShards = null,
             string shardKeys = null, CreateCollectionKeyOption keyOptions = null, int? IndexBuckets = null, Action<BaseResult> baseResult = null)
         {
             return CreateCollectionAsync(name, waitForSync, doCompact, journalSize, isSystem,
                 isVolatile, type, numberOfShards, shardKeys, keyOptions, IndexBuckets, baseResult).ResultSynchronizer();
+        }
+
+        /// <summary>
+        /// Creates a collection
+        /// </summary>
+        /// <param name="name">Name of the collection</param>
+        /// <param name="waitForSync">If true then the data is synchronised to disk before returning from a document create, update, replace or removal operation</param>
+        /// <param name="doCompact">Whether or not the collection will be compacted</param>
+        /// <param name="journalSize"> The maximal size of a journal or datafile in bytes. The value must be at least 1048576 (1 MB).</param>
+        /// <param name="isSystem"> If true, create a system collection. In this case collection-name should start with an underscore</param>
+        /// <param name="isVolatile">If true then the collection data is kept in-memory only and not made persistent</param>
+        /// <param name="type"> The type of the collection to create</param>
+        /// <param name="numberOfShards">In a cluster, this value determines the number of shards to create for the collection</param>
+        /// <param name="shardKeys">In a cluster, this attribute determines which document attributes are used to determine the target shard for documents</param>
+        /// <returns>CreateCollectionResult</returns>
+        public Task<CreateCollectionResult> CreateCollectionAsync<T>(bool? waitForSync = null, bool? doCompact = null, double? journalSize = null,
+            bool? isSystem = null, bool? isVolatile = null, CollectionType? type = null, int? numberOfShards = null
+            , string shardKeys = null, CreateCollectionKeyOption keyOptions = null, int? IndexBuckets = null, Action<BaseResult> baseResult = null)
+        {
+            string collectionName = SharedSetting.Collection.ResolveCollectionName<T>();
+            return CreateCollectionAsync(collectionName, waitForSync, doCompact, journalSize, isSystem,
+                isVolatile, type, numberOfShards, shardKeys, keyOptions, IndexBuckets, baseResult);
         }
 
         /// <summary>

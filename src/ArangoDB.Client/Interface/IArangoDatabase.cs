@@ -403,6 +403,21 @@ namespace ArangoDB.Client
         /// <summary>
         /// Creates a collection
         /// </summary>
+        /// <param name="waitForSync">If true then the data is synchronised to disk before returning from a document create, update, replace or removal operation</param>
+        /// <param name="doCompact">Whether or not the collection will be compacted</param>
+        /// <param name="journalSize"> The maximal size of a journal or datafile in bytes. The value must be at least 1048576 (1 MB).</param>
+        /// <param name="isSystem"> If true, create a system collection. In this case collection-name should start with an underscore</param>
+        /// <param name="isVolatile">If true then the collection data is kept in-memory only and not made persistent</param>
+        /// <param name="type"> The type of the collection to create</param>
+        /// <param name="numberOfShards">In a cluster, this value determines the number of shards to create for the collection</param>
+        /// <param name="shardKeys">In a cluster, this attribute determines which document attributes are used to determine the target shard for documents</param>
+        /// <returns>CreateCollectionResult</returns>
+        CreateCollectionResult CreateCollection<T>(bool? waitForSync = null, bool? doCompact = null, double? journalSize = null,
+            bool? isSystem = null, bool? isVolatile = null, CollectionType? type = null, int? numberOfShards = null, string shardKeys = null, CreateCollectionKeyOption keyOptions = null, int? IndexBuckets = null, Action<BaseResult> baseResult = null);
+
+        /// <summary>
+        /// Creates a collection
+        /// </summary>
         /// <param name="name">Name of the collection</param>
         /// <param name="waitForSync">If true then the data is synchronised to disk before returning from a document create, update, replace or removal operation</param>
         /// <param name="doCompact">Whether or not the collection will be compacted</param>
@@ -431,6 +446,22 @@ namespace ArangoDB.Client
         /// <param name="baseResult">Runs when base result is ready</param>
         /// <returns>List of collection properties</returns>
         Task<List<CreateCollectionResult>> ListCollectionsAsync(bool excludeSystem = true, Action<BaseResult> baseResult = null);
+
+        /// <summary>
+        /// Creates a collection
+        /// </summary>
+        /// <param name="name">Name of the collection</param>
+        /// <param name="waitForSync">If true then the data is synchronised to disk before returning from a document create, update, replace or removal operation</param>
+        /// <param name="doCompact">Whether or not the collection will be compacted</param>
+        /// <param name="journalSize"> The maximal size of a journal or datafile in bytes. The value must be at least 1048576 (1 MB).</param>
+        /// <param name="isSystem"> If true, create a system collection. In this case collection-name should start with an underscore</param>
+        /// <param name="isVolatile">If true then the collection data is kept in-memory only and not made persistent</param>
+        /// <param name="type"> The type of the collection to create</param>
+        /// <param name="numberOfShards">In a cluster, this value determines the number of shards to create for the collection</param>
+        /// <param name="shardKeys">In a cluster, this attribute determines which document attributes are used to determine the target shard for documents</param>
+        /// <returns>CreateCollectionResult</returns>
+        Task<CreateCollectionResult> CreateCollectionAsync<T>(bool? waitForSync = null, bool? doCompact = null, double? journalSize = null,
+            bool? isSystem = null, bool? isVolatile = null, CollectionType? type = null, int? numberOfShards = null, string shardKeys = null, CreateCollectionKeyOption keyOptions = null, int? IndexBuckets = null, Action<BaseResult> baseResult = null);
 
         /// <summary>
         /// Creates a collection

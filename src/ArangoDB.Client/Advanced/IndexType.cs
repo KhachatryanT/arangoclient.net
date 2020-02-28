@@ -12,6 +12,7 @@ namespace ArangoDB.Client
         Hash = 1,
         Skiplist = 2,
         Geo = 3,
-        Fulltext = 4
+        Fulltext = 4,
+        Ttl = 5
     }
 }

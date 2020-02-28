@@ -56,5 +56,11 @@ namespace ArangoDB.Client.Data
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? MinLength { get; set; }
+
+        /// <summary>
+        /// Documents expire after (for ttl) in sec
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? ExpireAfter { get; set; }
     }
 }

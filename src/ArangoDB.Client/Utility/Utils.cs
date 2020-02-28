@@ -163,6 +163,8 @@ namespace ArangoDB.Client.Utility
                     return "geo";
                 case IndexType.Fulltext:
                     return "fulltext";
+                case IndexType.Ttl:
+                    return "ttl";
                 default:
                     throw new InvalidOperationException($"IndexTypeToString {indexType} binding not found, this is a client bug");
             }
